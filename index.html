@@ -5,400 +5,504 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chocolatetello — Handgjorda Desserter i Solna</title>
     <meta name="description" content="Våfflor, pannkakor, crêpes, gelato och chokladdrömmar i Huvudsta Centrum, Solna. Öppet alla dagar.">
-    <meta property="og:title" content="Chocolatetello — Handgjorda Desserter i Solna">
-    <meta property="og:description" content="Våfflor, pannkakor, crêpes, gelato och chokladdrömmar. Besök oss i Huvudsta Centrum!">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://chocolatetello.se">
-    <meta name="theme-color" content="#2C1810">
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="apple-touch-icon" href="images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --chocolate-dark: #1a0e0a;
-            --chocolate-rich: #2C1810;
-            --chocolate-mid: #4a2c2a;
-            --chocolate-warm: #6B3A2E;
+            --choco: #1a0e0a;
+            --choco-rich: #2C1810;
+            --choco-mid: #4a2c2a;
+            --rose: #E8527A;
+            --rose-dark: #C74B6A;
+            --rose-glow: #FF6B9D;
+            --rose-soft: rgba(232, 82, 122, 0.15);
             --caramel: #C4883A;
             --caramel-light: #D4A054;
             --cream: #F5E6D3;
-            --cream-light: #FFF8F0;
-            --accent-pink: #E8527A;
-            --accent-berry: #C74B7A;
-            --text-light: #F5E6D3;
-            --text-muted: #B8A090;
+            --text: #F5E6D3;
+            --text-m: #B8A090;
+            --gold: #FFD700;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--chocolate-dark);
-            color: var(--text-light);
-            overflow-x: hidden;
+            font-family:'Inter',-apple-system,sans-serif;
+            background:var(--choco); color:var(--text); overflow-x:hidden;
         }
 
-        /* NAV */
+        /* === ANIMATED BG PARTICLES === */
+        .particles {
+            position:fixed; inset:0; z-index:0; pointer-events:none;
+        }
+        .particles span {
+            position:absolute; border-radius:50%;
+            background:var(--rose); opacity:0.06;
+            animation:float 20s infinite;
+        }
+        .particles span:nth-child(1) { width:300px; height:300px; top:10%; left:5%; animation-delay:0s; }
+        .particles span:nth-child(2) { width:200px; height:200px; top:60%; right:10%; animation-delay:5s; }
+        .particles span:nth-child(3) { width:150px; height:150px; top:30%; right:30%; animation-delay:10s; background:var(--caramel); }
+        .particles span:nth-child(4) { width:250px; height:250px; bottom:10%; left:20%; animation-delay:15s; }
+        @keyframes float {
+            0%,100% { transform:translateY(0) scale(1); }
+            50% { transform:translateY(-40px) scale(1.1); }
+        }
+
+        /* === NAV === */
         nav {
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            padding: 0.8rem 2rem;
-            display: flex; justify-content: space-between; align-items: center;
-            transition: background 0.3s;
+            position:fixed; top:0; width:100%; z-index:100;
+            padding:0.8rem 2rem;
+            display:flex; justify-content:space-between; align-items:center;
+            transition:all 0.4s;
         }
         nav.scrolled {
-            background: rgba(26, 14, 10, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            background:rgba(26,14,10,0.95);
+            backdrop-filter:blur(20px);
+            box-shadow:0 4px 30px rgba(232,82,122,0.1);
         }
-        .nav-brand {
-            display: flex; align-items: center; gap: 0.8rem;
-            text-decoration: none;
-        }
-        .nav-brand img {
-            height: 45px; width: 45px; border-radius: 50%;
-        }
+        .nav-brand { display:flex; align-items:center; gap:0.8rem; text-decoration:none; }
+        .nav-brand img { height:42px; width:42px; border-radius:50%; }
         .nav-brand span {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem; font-weight: 700;
-            color: var(--accent-pink);
-            letter-spacing: 0.5px;
+            font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700;
+            background:linear-gradient(135deg,var(--rose),var(--rose-glow));
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
         }
-        .nav-links {
-            display: flex; gap: 2rem; list-style: none; align-items: center;
-        }
+        .nav-links { display:flex; gap:1.8rem; list-style:none; align-items:center; }
         .nav-links a {
-            color: var(--text-muted); text-decoration: none;
-            font-size: 0.9rem; font-weight: 400; letter-spacing: 0.5px;
-            transition: color 0.3s;
+            color:var(--text-m); text-decoration:none; font-size:0.85rem;
+            font-weight:400; letter-spacing:0.5px; transition:color 0.3s;
         }
-        .nav-links a:hover { color: var(--caramel); }
+        .nav-links a:hover { color:var(--rose); }
         .nav-cta {
-            background: var(--accent-pink);
-            color: white !important; padding: 0.5rem 1.2rem;
-            border-radius: 25px; font-weight: 600 !important;
-            transition: transform 0.3s, background 0.3s !important;
+            background:linear-gradient(135deg,var(--rose),var(--rose-dark)) !important;
+            color:white !important; padding:0.5rem 1.2rem;
+            border-radius:25px; font-weight:600 !important;
         }
-        .nav-cta:hover { background: var(--accent-berry) !important; transform: scale(1.05); }
+        .nav-cta:hover { box-shadow:0 4px 20px rgba(232,82,122,0.4); }
+        .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:200; }
+        .hamburger span { width:28px; height:2px; background:var(--rose); }
 
-        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 200; }
-        .hamburger span { width: 28px; height: 2px; background: var(--accent-pink); transition: 0.3s; }
-
-        /* HERO */
+        /* === HERO === */
         .hero {
-            min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
+            min-height:100vh; display:flex; align-items:center; justify-content:center;
+            position:relative; overflow:hidden;
         }
         .hero-bg {
-            position: absolute; inset: 0;
-            background: url('images/interior.jpg') center/cover no-repeat;
+            position:absolute; inset:0;
+            background:url('images/interior.jpg') center/cover;
         }
         .hero-bg::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(
-                135deg,
-                rgba(26, 14, 10, 0.85) 0%,
-                rgba(44, 24, 16, 0.75) 50%,
-                rgba(26, 14, 10, 0.9) 100%
+            content:''; position:absolute; inset:0;
+            background:linear-gradient(135deg,
+                rgba(26,14,10,0.92) 0%,
+                rgba(44,24,16,0.8) 40%,
+                rgba(199,75,106,0.15) 100%
             );
         }
         .hero-content {
-            position: relative; z-index: 1;
-            text-align: center; padding: 2rem; max-width: 800px;
+            position:relative; z-index:2; text-align:center; padding:2rem; max-width:850px;
         }
         .hero-logo {
-            width: 120px; height: 120px; border-radius: 50%;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            border: 3px solid rgba(232, 82, 122, 0.3);
+            width:130px; height:130px; border-radius:50%; margin-bottom:1.5rem;
+            box-shadow:0 0 60px rgba(232,82,122,0.3), 0 10px 40px rgba(0,0,0,0.4);
+            border:3px solid rgba(232,82,122,0.3);
+            animation:pulse-glow 3s infinite;
+        }
+        @keyframes pulse-glow {
+            0%,100% { box-shadow:0 0 30px rgba(232,82,122,0.2), 0 10px 40px rgba(0,0,0,0.4); }
+            50% { box-shadow:0 0 60px rgba(232,82,122,0.4), 0 10px 40px rgba(0,0,0,0.4); }
         }
         .hero-badge {
-            display: inline-block; font-size: 0.8rem; letter-spacing: 3px;
-            text-transform: uppercase; color: var(--caramel);
-            border: 1px solid rgba(196, 136, 58, 0.3);
-            padding: 0.5rem 1.5rem; border-radius: 30px; margin-bottom: 1.5rem;
+            display:inline-block; font-size:0.75rem; letter-spacing:4px;
+            text-transform:uppercase; color:var(--rose);
+            border:1px solid rgba(232,82,122,0.3);
+            padding:0.5rem 1.5rem; border-radius:30px; margin-bottom:1.5rem;
+            backdrop-filter:blur(10px); background:rgba(232,82,122,0.05);
         }
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            font-weight: 700; line-height: 1.1; margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--cream) 0%, var(--accent-pink) 50%, var(--caramel-light) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            font-family:'Playfair Display',serif;
+            font-size:clamp(3rem,9vw,6rem);
+            font-weight:700; line-height:1.05; margin-bottom:0.5rem;
+            background:linear-gradient(135deg,var(--cream) 0%,var(--rose) 40%,var(--caramel-light) 80%,var(--rose-glow) 100%);
+            background-size:200% auto; animation:shimmer 4s ease infinite;
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+        }
+        @keyframes shimmer {
+            0% { background-position:0% center; }
+            100% { background-position:200% center; }
         }
         .hero-tagline {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.1rem, 3vw, 1.6rem);
-            font-style: italic; color: var(--text-muted); margin-bottom: 2rem;
+            font-family:'Playfair Display',serif;
+            font-size:clamp(1.1rem,3vw,1.6rem);
+            font-style:italic; color:var(--text-m); margin-bottom:2rem;
         }
-        .hero-description {
-            font-size: 1.05rem; color: var(--text-muted);
-            max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7;
+        .hero-desc {
+            font-size:1.05rem; color:var(--text-m);
+            max-width:520px; margin:0 auto 2.5rem; line-height:1.8;
         }
-        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-pink), var(--accent-berry));
-            color: white; padding: 1rem 2.5rem; border: none; border-radius: 50px;
-            font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s; letter-spacing: 0.5px;
+        .hero-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+        .btn-p {
+            background:linear-gradient(135deg,var(--rose),var(--rose-dark));
+            color:white; padding:1rem 2.5rem; border:none; border-radius:50px;
+            font-size:1rem; font-weight:600; cursor:pointer; text-decoration:none;
+            transition:all 0.3s; letter-spacing:0.5px;
+            box-shadow:0 4px 20px rgba(232,82,122,0.3);
         }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(232, 82, 122, 0.3); }
-
-        .btn-outline {
-            background: transparent; color: var(--caramel);
-            padding: 1rem 2.5rem; border: 1.5px solid var(--caramel);
-            border-radius: 50px; font-size: 1rem; font-weight: 500;
-            cursor: pointer; text-decoration: none; transition: all 0.3s;
+        .btn-p:hover { transform:translateY(-3px); box-shadow:0 8px 35px rgba(232,82,122,0.5); }
+        .btn-o {
+            background:transparent; color:var(--rose);
+            padding:1rem 2.5rem; border:1.5px solid rgba(232,82,122,0.5);
+            border-radius:50px; font-size:1rem; font-weight:500;
+            cursor:pointer; text-decoration:none; transition:all 0.3s;
         }
-        .btn-outline:hover { background: rgba(196, 136, 58, 0.1); transform: translateY(-2px); }
-
+        .btn-o:hover { background:rgba(232,82,122,0.1); transform:translateY(-3px); }
         .scroll-hint {
-            position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-            color: var(--text-muted); font-size: 0.8rem; letter-spacing: 2px;
-            text-transform: uppercase; animation: bounce 2s infinite;
+            position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+            color:var(--text-m); font-size:0.75rem; letter-spacing:3px;
+            text-transform:uppercase; animation:bounce 2s infinite;
         }
         .scroll-hint::after {
-            content: ''; display: block; width: 1px; height: 30px;
-            background: var(--accent-pink); margin: 0.5rem auto 0;
+            content:''; display:block; width:1px; height:30px;
+            background:linear-gradient(var(--rose),transparent); margin:0.5rem auto 0;
         }
         @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(8px); }
+            0%,100% { transform:translateX(-50%) translateY(0); }
+            50% { transform:translateX(-50%) translateY(8px); }
         }
 
-        /* SECTIONS COMMON */
-        section { padding: 6rem 2rem; }
-        .section-label {
-            font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase;
-            color: var(--accent-pink); margin-bottom: 1rem;
+        /* === COMMON === */
+        section { padding:6rem 2rem; position:relative; z-index:1; }
+        .s-label {
+            font-size:0.7rem; letter-spacing:5px; text-transform:uppercase;
+            color:var(--rose); margin-bottom:1rem;
         }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 1rem; color: var(--cream);
+        .s-title {
+            font-family:'Playfair Display',serif;
+            font-size:clamp(2rem,5vw,3.5rem);
+            margin-bottom:1rem; color:var(--cream);
         }
-        .section-subtitle {
-            font-size: 1.1rem; color: var(--text-muted);
-            max-width: 600px; line-height: 1.7;
+        .s-sub { font-size:1.05rem; color:var(--text-m); max-width:600px; line-height:1.7; }
+
+        /* === GALLERY MARQUEE === */
+        .gallery {
+            padding:0; overflow:hidden; position:relative; z-index:1;
+            border-top:1px solid rgba(232,82,122,0.1);
+            border-bottom:1px solid rgba(232,82,122,0.1);
+        }
+        .gallery-track {
+            display:flex; gap:4px;
+            animation:marquee 30s linear infinite;
+            width:max-content;
+        }
+        .gallery-track img {
+            height:250px; width:auto; object-fit:cover;
+            filter:brightness(0.9); transition:filter 0.3s;
+        }
+        .gallery-track img:hover { filter:brightness(1.1); }
+        @keyframes marquee {
+            0% { transform:translateX(0); }
+            100% { transform:translateX(-50%); }
         }
 
-        /* PHOTO GALLERY STRIP */
-        .gallery-strip {
-            padding: 0; overflow: hidden;
-            display: flex; gap: 0;
-        }
-        .gallery-strip img {
-            flex: 1; min-width: 0; height: 300px;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        .gallery-strip img:hover { transform: scale(1.05); z-index: 2; }
-
-        /* ABOUT */
-        .about {
-            background: var(--chocolate-rich); text-align: center;
-        }
+        /* === ABOUT === */
+        .about { background:var(--choco-rich); text-align:center; }
         .about-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 3rem; max-width: 900px; margin: 3rem auto 0;
+            display:grid; grid-template-columns:repeat(3,1fr);
+            gap:2.5rem; max-width:950px; margin:3rem auto 0;
         }
-        .about-item { padding: 2rem; }
-        .about-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-        .about-item h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem; margin-bottom: 0.8rem; color: var(--accent-pink);
+        .about-card {
+            padding:2.5rem 2rem; border-radius:20px;
+            background:rgba(232,82,122,0.04);
+            border:1px solid rgba(232,82,122,0.08);
+            transition:all 0.3s;
         }
-        .about-item p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+        .about-card:hover {
+            border-color:rgba(232,82,122,0.2);
+            transform:translateY(-5px);
+            box-shadow:0 20px 40px rgba(0,0,0,0.2);
+        }
+        .about-icon { font-size:2.5rem; margin-bottom:1rem; }
+        .about-card h3 {
+            font-family:'Playfair Display',serif;
+            font-size:1.2rem; margin-bottom:0.8rem; color:var(--rose);
+        }
+        .about-card p { font-size:0.9rem; color:var(--text-m); line-height:1.6; }
 
-        /* MENU */
-        .menu { max-width: 1100px; margin: 0 auto; text-align: center; }
-        .menu-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 2rem; margin-top: 3rem;
-        }
+        /* === MENU === */
+        .menu { max-width:1100px; margin:0 auto; text-align:center; }
+        .menu-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2rem; margin-top:3rem; }
         .menu-card {
-            background: rgba(74, 44, 42, 0.3);
-            border: 1px solid rgba(196, 136, 58, 0.1);
-            border-radius: 20px; overflow: hidden;
-            text-align: left; transition: transform 0.3s, border-color 0.3s;
+            background:rgba(74,44,42,0.25); border:1px solid rgba(232,82,122,0.08);
+            border-radius:20px; overflow:hidden; text-align:left;
+            transition:all 0.4s; position:relative;
         }
-        .menu-card:hover { transform: translateY(-5px); border-color: rgba(232, 82, 122, 0.3); }
-        .menu-card-img {
-            width: 100%; height: 220px; object-fit: cover;
+        .menu-card:hover {
+            transform:translateY(-8px);
+            border-color:rgba(232,82,122,0.25);
+            box-shadow:0 20px 50px rgba(0,0,0,0.3), 0 0 30px rgba(232,82,122,0.08);
         }
-        .menu-card-body { padding: 1.5rem 2rem 2rem; }
+        .menu-card-img { width:100%; height:220px; object-fit:cover; transition:transform 0.5s; }
+        .menu-card:hover .menu-card-img { transform:scale(1.05); }
+        .menu-card-body { padding:1.5rem 2rem 2rem; position:relative; }
         .menu-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem; color: var(--cream); margin-bottom: 0.5rem;
+            font-family:'Playfair Display',serif;
+            font-size:1.3rem; color:var(--cream); margin-bottom:0.4rem;
         }
         .menu-card .price {
-            color: var(--accent-pink); font-weight: 600; font-size: 1.1rem; margin-bottom: 0.8rem;
+            color:var(--rose); font-weight:700; font-size:1.1rem; margin-bottom:0.6rem;
         }
-        .menu-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .menu-card p { color:var(--text-m); font-size:0.88rem; line-height:1.6; }
 
-        /* SIGNATURE */
-        .signature { background: var(--chocolate-rich); text-align: center; }
-        .signature-split {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 3rem; max-width: 1000px; margin: 3rem auto 0;
-            align-items: center;
+        /* === SIGNATURE === */
+        .signature { background:var(--choco-rich); text-align:center; overflow:hidden; }
+        .sig-split {
+            display:grid; grid-template-columns:1fr 1fr;
+            gap:4rem; max-width:1050px; margin:3rem auto 0; align-items:center;
         }
-        .signature-image {
-            border-radius: 24px; overflow: hidden;
-            border: 1px solid rgba(232, 82, 122, 0.15);
+        .sig-img {
+            border-radius:24px; overflow:hidden; position:relative;
+            box-shadow:0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(232,82,122,0.1);
         }
-        .signature-image img { width: 100%; height: 400px; object-fit: cover; display: block; }
-        .signature-info { text-align: left; }
-        .signature-info h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem; color: var(--accent-pink); margin-bottom: 0.5rem;
+        .sig-img img { width:100%; height:420px; object-fit:cover; display:block; }
+        .sig-img::after {
+            content:'SIGNATUR'; position:absolute; top:1.5rem; right:1.5rem;
+            background:var(--rose); color:white; padding:0.4rem 1rem;
+            border-radius:20px; font-size:0.7rem; letter-spacing:3px; font-weight:600;
         }
-        .signature-price {
-            font-size: 1.3rem; font-weight: 600; color: var(--cream); margin-bottom: 1.5rem;
+        .sig-info { text-align:left; }
+        .sig-info h3 {
+            font-family:'Playfair Display',serif;
+            font-size:2.2rem; color:var(--rose); margin-bottom:0.3rem;
         }
-        .signature-details { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.5rem; }
-        .signature-tag {
-            background: rgba(232, 82, 122, 0.12); color: var(--accent-pink);
-            padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem;
+        .sig-price {
+            font-size:1.2rem; font-weight:500; color:var(--cream); margin-bottom:1.5rem;
+            opacity:0.8;
         }
-        .signature-text { color: var(--text-muted); line-height: 1.7; font-size: 1rem; }
+        .sig-tags { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.5rem; }
+        .sig-tag {
+            background:rgba(232,82,122,0.1); color:var(--rose-glow);
+            padding:0.4rem 0.9rem; border-radius:20px; font-size:0.82rem;
+            border:1px solid rgba(232,82,122,0.15);
+        }
+        .sig-text { color:var(--text-m); line-height:1.8; font-size:0.95rem; }
 
-        /* EXCLUSIVE */
-        .exclusive { text-align: center; max-width: 1100px; margin: 0 auto; }
-        .exclusive-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem; margin-top: 3rem;
+        /* === EXCLUSIVE === */
+        .exclusive { text-align:center; max-width:1100px; margin:0 auto; }
+        .ex-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-top:3rem; }
+        .ex-card {
+            border-radius:20px; overflow:hidden; position:relative;
+            aspect-ratio:1; cursor:pointer;
         }
-        .exclusive-card {
-            border-radius: 20px; overflow: hidden; position: relative;
-            aspect-ratio: 1; cursor: pointer;
+        .ex-card img {
+            width:100%; height:100%; object-fit:cover; transition:transform 0.6s;
         }
-        .exclusive-card img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.5s;
+        .ex-card:hover img { transform:scale(1.12); }
+        .ex-card .ov {
+            position:absolute; inset:0;
+            background:linear-gradient(transparent 30%, rgba(26,14,10,0.9));
+            display:flex; flex-direction:column; justify-content:flex-end; padding:1.5rem;
+            opacity:0; transition:opacity 0.4s;
         }
-        .exclusive-card:hover img { transform: scale(1.1); }
-        .exclusive-card .overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(transparent 40%, rgba(26, 14, 10, 0.85));
-            display: flex; align-items: flex-end; padding: 1.5rem;
+        .ex-card:hover .ov { opacity:1; }
+        .ex-card .ov h4 {
+            font-family:'Playfair Display',serif; color:var(--cream); font-size:1.1rem;
         }
-        .exclusive-card .overlay h4 {
-            font-family: 'Playfair Display', serif;
-            color: var(--cream); font-size: 1.1rem;
-        }
+        .ex-card .ov p { color:var(--rose); font-size:0.8rem; margin-top:0.3rem; }
 
-        /* REVIEWS */
-        .reviews { text-align: center; max-width: 1000px; margin: 0 auto; background: var(--chocolate-rich); }
-        .stars { color: var(--accent-pink); font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .rating-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem; color: var(--accent-pink); font-weight: 700;
+        /* === ORDER SECTION === */
+        .order { background:var(--choco-rich); text-align:center; }
+        .order-methods {
+            display:grid; grid-template-columns:repeat(3,1fr);
+            gap:2rem; max-width:900px; margin:3rem auto 0;
         }
-        .rating-label { color: var(--text-muted); margin-bottom: 3rem; }
-        .review-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-        .review-card {
-            background: rgba(74, 44, 42, 0.2);
-            border: 1px solid rgba(232, 82, 122, 0.08);
-            border-radius: 16px; padding: 2rem; text-align: left;
+        .order-card {
+            padding:2.5rem 2rem; border-radius:20px;
+            background:rgba(232,82,122,0.04);
+            border:1px solid rgba(232,82,122,0.1);
+            transition:all 0.3s; text-decoration:none; display:block;
         }
-        .review-card .stars { font-size: 1rem; margin-bottom: 1rem; }
-        .review-card p {
-            color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;
-            font-style: italic; margin-bottom: 1rem;
+        .order-card:hover {
+            border-color:var(--rose);
+            transform:translateY(-5px);
+            box-shadow:0 15px 40px rgba(232,82,122,0.15);
         }
-        .review-author { color: var(--cream); font-weight: 500; font-size: 0.85rem; }
+        .order-icon { font-size:3rem; margin-bottom:1rem; }
+        .order-card h3 {
+            font-family:'Playfair Display',serif;
+            font-size:1.3rem; color:var(--cream); margin-bottom:0.5rem;
+        }
+        .order-card p { color:var(--text-m); font-size:0.9rem; line-height:1.5; }
 
-        /* VISIT */
-        .visit { text-align: center; }
+        /* === REVIEWS === */
+        .reviews { text-align:center; max-width:1000px; margin:0 auto; }
+        .stars { color:var(--rose); font-size:1.5rem; margin-bottom:0.5rem; }
+        .rating-big {
+            font-family:'Playfair Display',serif;
+            font-size:5rem; font-weight:700;
+            background:linear-gradient(135deg,var(--rose),var(--gold));
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+        }
+        .rating-label { color:var(--text-m); margin-bottom:3rem; font-size:0.95rem; }
+        .rev-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+        .rev-card {
+            background:rgba(74,44,42,0.15);
+            border:1px solid rgba(232,82,122,0.06);
+            border-radius:16px; padding:2rem; text-align:left;
+            transition:all 0.3s;
+        }
+        .rev-card:hover { border-color:rgba(232,82,122,0.2); }
+        .rev-card .stars { font-size:0.9rem; margin-bottom:0.8rem; }
+        .rev-card p {
+            color:var(--text-m); font-size:0.92rem; line-height:1.65;
+            font-style:italic; margin-bottom:1rem;
+        }
+        .rev-author { color:var(--cream); font-weight:500; font-size:0.82rem; }
+
+        /* === PARTY BOOKING === */
+        .party { background:var(--choco-rich); text-align:center; overflow:hidden; position:relative; }
+        .party::before {
+            content:''; position:absolute; inset:0;
+            background:url('images/familjen.jpg') center/cover; opacity:0.08;
+        }
+        .party>* { position:relative; z-index:1; }
+        .party-features {
+            display:flex; gap:2rem; justify-content:center; flex-wrap:wrap;
+            margin:2rem auto; max-width:700px;
+        }
+        .party-feat {
+            background:rgba(232,82,122,0.08); border:1px solid rgba(232,82,122,0.15);
+            border-radius:12px; padding:0.8rem 1.5rem;
+            color:var(--cream); font-size:0.9rem;
+        }
+        .party-form {
+            max-width:500px; margin:2rem auto 0;
+            background:rgba(26,14,10,0.6); border:1px solid rgba(232,82,122,0.15);
+            border-radius:24px; padding:2.5rem; backdrop-filter:blur(10px);
+        }
+        .party-form input, .party-form select, .party-form textarea {
+            width:100%; padding:0.9rem 1.2rem; margin-bottom:1rem;
+            background:rgba(74,44,42,0.3); border:1px solid rgba(232,82,122,0.15);
+            border-radius:12px; color:var(--cream); font-family:'Inter',sans-serif;
+            font-size:0.9rem; outline:none; transition:border-color 0.3s;
+        }
+        .party-form input:focus, .party-form select:focus, .party-form textarea:focus {
+            border-color:var(--rose);
+        }
+        .party-form input::placeholder, .party-form textarea::placeholder { color:var(--text-m); }
+        .party-form select { appearance:none; cursor:pointer; }
+        .party-form select option { background:var(--choco-rich); }
+        .party-form textarea { resize:vertical; min-height:80px; }
+        .party-form button {
+            width:100%; padding:1rem; border:none; border-radius:12px;
+            background:linear-gradient(135deg,var(--rose),var(--rose-dark));
+            color:white; font-size:1rem; font-weight:600; cursor:pointer;
+            transition:all 0.3s; letter-spacing:0.5px;
+        }
+        .party-form button:hover { box-shadow:0 8px 30px rgba(232,82,122,0.4); transform:translateY(-2px); }
+
+        /* === VISIT === */
+        .visit { text-align:center; }
         .visit-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
-            max-width: 900px; margin: 3rem auto 0; align-items: start;
+            display:grid; grid-template-columns:1fr 1fr; gap:3rem;
+            max-width:900px; margin:3rem auto 0; align-items:start;
         }
-        .visit-info { text-align: left; }
-        .visit-item { margin-bottom: 2rem; }
+        .visit-info { text-align:left; }
+        .visit-item { margin-bottom:2rem; }
         .visit-item h4 {
-            font-family: 'Playfair Display', serif;
-            color: var(--accent-pink); font-size: 1.1rem; margin-bottom: 0.5rem;
+            font-family:'Playfair Display',serif;
+            color:var(--rose); font-size:1.05rem; margin-bottom:0.5rem;
         }
-        .visit-item p { color: var(--text-muted); line-height: 1.6; }
-        .visit-item a { color: var(--caramel-light); text-decoration: none; }
-        .visit-item a:hover { text-decoration: underline; }
-        .visit-map { border-radius: 16px; overflow: hidden; border: 1px solid rgba(232, 82, 122, 0.15); }
-        .visit-map iframe { width: 100%; height: 350px; border: 0; }
+        .visit-item p { color:var(--text-m); line-height:1.6; }
+        .visit-item a { color:var(--caramel-light); text-decoration:none; }
+        .visit-item a:hover { text-decoration:underline; }
+        .visit-map {
+            border-radius:16px; overflow:hidden;
+            border:1px solid rgba(232,82,122,0.15);
+            box-shadow:0 10px 40px rgba(0,0,0,0.3);
+        }
+        .visit-map iframe { width:100%; height:350px; border:0; }
 
-        /* CTA */
-        .cta-banner {
-            text-align: center; padding: 5rem 2rem; position: relative; overflow: hidden;
-            background: var(--chocolate-rich);
+        /* === LANG SWITCHER (floating) === */
+        .lang-float {
+            position:fixed; bottom:2rem; right:2rem; z-index:99;
+            display:flex; gap:0.5rem;
         }
-        .cta-banner::before {
-            content: ''; position: absolute; inset: 0;
-            background: url('images/familjen.jpg') center/cover no-repeat;
-            opacity: 0.15;
+        .lang-btn {
+            width:44px; height:44px; border-radius:50%;
+            background:rgba(26,14,10,0.9); border:1px solid rgba(232,82,122,0.2);
+            color:var(--cream); font-size:1.2rem; cursor:pointer;
+            display:flex; align-items:center; justify-content:center;
+            transition:all 0.3s; backdrop-filter:blur(10px);
         }
-        .cta-banner > * { position: relative; z-index: 1; }
-        .cta-banner h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1rem; color: var(--cream);
+        .lang-btn:hover, .lang-btn.active {
+            border-color:var(--rose); background:rgba(232,82,122,0.15);
+            box-shadow:0 4px 20px rgba(232,82,122,0.2);
         }
-        .cta-banner p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; }
 
-        /* FOOTER */
+        /* === CTA === */
+        .cta-final {
+            text-align:center; padding:6rem 2rem; position:relative; overflow:hidden;
+        }
+        .cta-final::before {
+            content:''; position:absolute; inset:0;
+            background:radial-gradient(ellipse at center, rgba(232,82,122,0.1) 0%, transparent 70%);
+        }
+        .cta-final>* { position:relative; z-index:1; }
+        .cta-final h2 {
+            font-family:'Playfair Display',serif;
+            font-size:clamp(2rem,5vw,3.2rem); margin-bottom:1rem; color:var(--cream);
+        }
+        .cta-final p { color:var(--text-m); font-size:1.1rem; margin-bottom:2rem; }
+
+        /* === FOOTER === */
         footer {
-            background: rgba(10, 5, 3, 0.5); text-align: center;
-            padding: 3rem 2rem; border-top: 1px solid rgba(232, 82, 122, 0.1);
+            background:rgba(10,5,3,0.6); text-align:center;
+            padding:3rem 2rem; border-top:1px solid rgba(232,82,122,0.1);
         }
-        .footer-brand {
-            display: flex; align-items: center; justify-content: center;
-            gap: 0.6rem; margin-bottom: 1rem;
+        .f-brand { display:flex; align-items:center; justify-content:center; gap:0.6rem; margin-bottom:1rem; }
+        .f-brand img { height:32px; width:32px; border-radius:50%; }
+        .f-brand span {
+            font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--rose);
         }
-        .footer-brand img { height: 35px; width: 35px; border-radius: 50%; }
-        .footer-brand span {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem; color: var(--accent-pink);
-        }
-        .footer-links {
-            display: flex; justify-content: center; gap: 2rem;
-            margin-bottom: 1.5rem; flex-wrap: wrap;
-        }
-        .footer-links a {
-            color: var(--text-muted); text-decoration: none; font-size: 0.85rem;
-            transition: color 0.3s;
-        }
-        .footer-links a:hover { color: var(--accent-pink); }
-        .footer-copy { color: rgba(184, 160, 144, 0.5); font-size: 0.8rem; }
+        .f-links { display:flex; justify-content:center; gap:1.5rem; margin-bottom:1rem; flex-wrap:wrap; }
+        .f-links a { color:var(--text-m); text-decoration:none; font-size:0.82rem; transition:color 0.3s; }
+        .f-links a:hover { color:var(--rose); }
+        .f-copy { color:rgba(184,160,144,0.4); font-size:0.75rem; }
 
-        /* MOBILE */
-        @media (max-width: 768px) {
+        /* === MOBILE === */
+        @media(max-width:768px) {
             .nav-links {
-                display: none; position: fixed; inset: 0;
-                background: rgba(26, 14, 10, 0.98);
-                flex-direction: column; justify-content: center; align-items: center; gap: 2rem;
+                display:none; position:fixed; inset:0;
+                background:rgba(26,14,10,0.98);
+                flex-direction:column; justify-content:center; align-items:center; gap:2rem;
             }
-            .nav-links.active { display: flex; }
-            .nav-links a { font-size: 1.2rem; }
-            .hamburger { display: flex; }
-            .about-grid, .review-cards, .exclusive-grid { grid-template-columns: 1fr; }
-            .menu-grid { grid-template-columns: 1fr; }
-            .visit-grid, .signature-split { grid-template-columns: 1fr; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .gallery-strip { flex-wrap: wrap; }
-            .gallery-strip img { height: 200px; min-width: 50%; flex: 1 1 50%; }
+            .nav-links.active { display:flex; }
+            .hamburger { display:flex; }
+            .about-grid,.rev-cards,.ex-grid,.order-methods { grid-template-columns:1fr; }
+            .menu-grid,.visit-grid,.sig-split { grid-template-columns:1fr; }
+            .hero-btns { flex-direction:column; align-items:center; }
+            .gallery-track img { height:180px; }
+            .lang-float { bottom:1rem; right:1rem; }
         }
 
-        /* ANIMATION */
-        .fade-in {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        /* === FADE === */
+        .fade-in { opacity:0; transform:translateY(30px); transition:opacity 0.8s,transform 0.8s; }
+        .fade-in.v { opacity:1; transform:translateY(0); }
     </style>
 </head>
 <body>
+
+    <!-- PARTICLES -->
+    <div class="particles"><span></span><span></span><span></span><span></span></div>
+
+    <!-- LANG SWITCHER -->
+    <div class="lang-float">
+        <button class="lang-btn active" onclick="setLang('sv')" title="Svenska">🇸🇪</button>
+        <button class="lang-btn" onclick="setLang('en')" title="English">🇬🇧</button>
+        <button class="lang-btn" onclick="setLang('ar')" title="العربية">🇸🇦</button>
+    </div>
 
     <!-- NAV -->
     <nav id="navbar">
@@ -407,72 +511,82 @@
             <span>Chocolatetello</span>
         </a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#about" onclick="closeMenu()">Om Oss</a></li>
-            <li><a href="#menu" onclick="closeMenu()">Meny</a></li>
-            <li><a href="#exclusive" onclick="closeMenu()">Exklusiva</a></li>
-            <li><a href="#reviews" onclick="closeMenu()">Omdömen</a></li>
-            <li><a href="#visit" onclick="closeMenu()">Besök Oss</a></li>
-            <li><a href="tel:+46769526059" class="nav-cta" onclick="closeMenu()">📞 Ring Oss</a></li>
+            <li><a href="#about" onclick="closeMenu()" data-sv="Om Oss" data-en="About" data-ar="عن المكان">Om Oss</a></li>
+            <li><a href="#menu" onclick="closeMenu()" data-sv="Meny" data-en="Menu" data-ar="القائمة">Meny</a></li>
+            <li><a href="#exclusive" onclick="closeMenu()" data-sv="Exklusiva" data-en="Exclusive" data-ar="حصري">Exklusiva</a></li>
+            <li><a href="#party" onclick="closeMenu()" data-sv="Boka Fest" data-en="Book Party" data-ar="حجز حفلة">Boka Fest</a></li>
+            <li><a href="#visit" onclick="closeMenu()" data-sv="Hitta Oss" data-en="Find Us" data-ar="موقعنا">Hitta Oss</a></li>
+            <li><a href="tel:+46769526059" class="nav-cta" onclick="closeMenu()">📞 Ring</a></li>
         </ul>
-        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </div>
+        <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </nav>
 
     <!-- HERO -->
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content fade-in">
-            <img src="images/logo.png" alt="Chocolatetello Logo" class="hero-logo">
-            <div class="hero-badge">Huvudsta Centrum · Solna</div>
+            <img src="images/logo.png" alt="Logo" class="hero-logo">
+            <div class="hero-badge" data-sv="Huvudsta Centrum · Solna" data-en="Huvudsta Centrum · Solna" data-ar="مركز هوفودستا · سولنا">Huvudsta Centrum · Solna</div>
             <h1>Chocolatetello</h1>
-            <p class="hero-tagline">Äkta smak av choklad & kärlek</p>
-            <p class="hero-description">
-                Handgjorda desserter med inspiration från Mellanöstern. 
-                Våfflor, pannkakor, crêpes, gelato och chokladdoppade drömmar — varje dag.
-            </p>
-            <div class="hero-buttons">
-                <a href="#menu" class="btn-primary">Utforska Menyn</a>
-                <a href="#visit" class="btn-outline">Hitta Hit</a>
+            <p class="hero-tagline" data-sv="Äkta smak av choklad & kärlek" data-en="True taste of chocolate & love" data-ar="طعم حقيقي من الشوكولاتة والحب">Äkta smak av choklad & kärlek</p>
+            <p class="hero-desc" data-sv="Handgjorda desserter med inspiration från Mellanöstern. Våfflor, pannkakor, crêpes, gelato och chokladdoppade drömmar — varje dag." data-en="Handcrafted desserts inspired by the Middle East. Waffles, pancakes, crêpes, gelato and chocolate-dipped dreams — every day." data-ar="حلويات يدوية مستوحاة من الشرق الأوسط. وافل، بان كيك، كريب، جيلاتو وأحلام مغطاة بالشوكولاتة — كل يوم.">Handgjorda desserter med inspiration från Mellanöstern. Våfflor, pannkakor, crêpes, gelato och chokladdoppade drömmar — varje dag.</p>
+            <div class="hero-btns">
+                <a href="#menu" class="btn-p" data-sv="Utforska Menyn" data-en="Explore Menu" data-ar="استكشف القائمة">Utforska Menyn</a>
+                <a href="#order" class="btn-o" data-sv="Beställ Nu" data-en="Order Now" data-ar="اطلب الآن">Beställ Nu</a>
             </div>
         </div>
-        <div class="scroll-hint">Scrolla</div>
+        <div class="scroll-hint" data-sv="Scrolla" data-en="Scroll" data-ar="مرر">Scrolla</div>
     </section>
 
-    <!-- PHOTO GALLERY STRIP -->
-    <div class="gallery-strip">
-        <img src="images/pannkaka-pistasch.jpg" alt="Pannkaka Pistasch" loading="lazy">
-        <img src="images/vaffla-choklad.jpg" alt="Våffla Choklad" loading="lazy">
-        <img src="images/smoothie.jpg" alt="Smoothie" loading="lazy">
-        <img src="images/vaffla-jordgubb.jpg" alt="Våffla Jordgubb" loading="lazy">
-        <img src="images/pannkaka-lotus.jpg" alt="Pannkaka Lotus" loading="lazy">
+    <!-- GALLERY MARQUEE -->
+    <div class="gallery">
+        <div class="gallery-track">
+            <img src="images/pannkaka-pistasch.jpg" alt="" loading="lazy">
+            <img src="images/vaffla-choklad.jpg" alt="" loading="lazy">
+            <img src="images/smoothie.jpg" alt="" loading="lazy">
+            <img src="images/vaffla-jordgubb.jpg" alt="" loading="lazy">
+            <img src="images/pannkaka-lotus.jpg" alt="" loading="lazy">
+            <img src="images/spagetti.jpg" alt="" loading="lazy">
+            <img src="images/nougat.jpg" alt="" loading="lazy">
+            <img src="images/ananas1.jpg" alt="" loading="lazy">
+            <img src="images/fruktsallad.jpg" alt="" loading="lazy">
+            <img src="images/vaffla-pistasch.jpg" alt="" loading="lazy">
+            <!-- duplicate for seamless loop -->
+            <img src="images/pannkaka-pistasch.jpg" alt="" loading="lazy">
+            <img src="images/vaffla-choklad.jpg" alt="" loading="lazy">
+            <img src="images/smoothie.jpg" alt="" loading="lazy">
+            <img src="images/vaffla-jordgubb.jpg" alt="" loading="lazy">
+            <img src="images/pannkaka-lotus.jpg" alt="" loading="lazy">
+            <img src="images/spagetti.jpg" alt="" loading="lazy">
+            <img src="images/nougat.jpg" alt="" loading="lazy">
+            <img src="images/ananas1.jpg" alt="" loading="lazy">
+            <img src="images/fruktsallad.jpg" alt="" loading="lazy">
+            <img src="images/vaffla-pistasch.jpg" alt="" loading="lazy">
+        </div>
     </div>
 
     <!-- ABOUT -->
     <section class="about" id="about">
         <div class="fade-in">
-            <p class="section-label">Välkommen</p>
-            <h2 class="section-title">Mer än bara choklad</h2>
-            <p class="section-subtitle" style="margin: 0 auto;">
-                Vi blandar svenska klassiker med smaker från Mellanöstern. 
-                Varje dessert skapas med passion, färska ingredienser och en gnutta magi.
-            </p>
+            <p class="s-label" data-sv="Välkommen" data-en="Welcome" data-ar="مرحباً">Välkommen</p>
+            <h2 class="s-title" data-sv="Mer än bara choklad" data-en="More than just chocolate" data-ar="أكثر من مجرد شوكولاتة">Mer än bara choklad</h2>
+            <p class="s-sub" style="margin:0 auto" data-sv="Vi blandar svenska klassiker med smaker från Mellanöstern. Varje dessert skapas med passion och de finaste ingredienserna." data-en="We blend Swedish classics with Middle Eastern flavors. Every dessert is crafted with passion and the finest ingredients." data-ar="نمزج بين الكلاسيكيات السويدية ونكهات الشرق الأوسط. كل حلوى مصنوعة بشغف وأجود المكونات.">Vi blandar svenska klassiker med smaker från Mellanöstern. Varje dessert skapas med passion och de finaste ingredienserna.</p>
         </div>
         <div class="about-grid fade-in">
-            <div class="about-item">
+            <div class="about-card">
                 <div class="about-icon">🍫</div>
-                <h3>Äkta Choklad</h3>
-                <p>Premiumchoklad i varje sås, topping och dessert. Inget halvhjärtat — bara det bästa.</p>
+                <h3 data-sv="Äkta Choklad" data-en="Real Chocolate" data-ar="شوكولاتة حقيقية">Äkta Choklad</h3>
+                <p data-sv="Premiumchoklad i varje sås och topping. Inget halvhjärtat — bara det bästa." data-en="Premium chocolate in every sauce and topping. No half measures — only the best." data-ar="شوكولاتة فاخرة في كل صوص وتوبينغ. لا حلول وسط — فقط الأفضل.">Premiumchoklad i varje sås och topping. Inget halvhjärtat — bara det bästa.</p>
             </div>
-            <div class="about-item">
+            <div class="about-card">
                 <div class="about-icon">🍓</div>
-                <h3>Färska Frukter</h3>
-                <p>Jordgubbar, blåbär och säsongens bästa — handplockade och alltid färska.</p>
+                <h3 data-sv="Färska Frukter" data-en="Fresh Fruits" data-ar="فواكه طازجة">Färska Frukter</h3>
+                <p data-sv="Jordgubbar, blåbär och säsongens bästa — alltid färska." data-en="Strawberries, blueberries and the season's best — always fresh." data-ar="فراولة وتوت وأفضل فواكه الموسم — دائماً طازجة.">Jordgubbar, blåbär och säsongens bästa — alltid färska.</p>
             </div>
-            <div class="about-item">
+            <div class="about-card">
                 <div class="about-icon">🌍</div>
-                <h3>Mellanöstern Möter Norden</h3>
-                <p>Unika smakkombinationer: pistage, lotus, nougat och mer. En fusion av kulturer på din tallrik.</p>
+                <h3 data-sv="Mellanöstern Möter Norden" data-en="Middle East Meets Nordics" data-ar="الشرق الأوسط يلتقي بالشمال">Mellanöstern Möter Norden</h3>
+                <p data-sv="Unika smakkombinationer: pistage, lotus, nougat och mer." data-en="Unique flavor combos: pistachio, lotus, nougat and more." data-ar="تركيبات نكهات فريدة: فستق، لوتس، نوغا والمزيد.">Unika smakkombinationer: pistage, lotus, nougat och mer.</p>
             </div>
         </div>
     </section>
@@ -480,43 +594,40 @@
     <!-- MENU -->
     <section class="menu" id="menu">
         <div class="fade-in">
-            <p class="section-label">Vår Meny</p>
-            <h2 class="section-title">Sötsaker för alla</h2>
-            <p class="section-subtitle" style="margin: 0 auto;">
-                Från fluffiga mini-pannkakor till krämig gelato — hitta din favorit.
-            </p>
+            <p class="s-label" data-sv="Vår Meny" data-en="Our Menu" data-ar="قائمتنا">Vår Meny</p>
+            <h2 class="s-title" data-sv="Sötsaker för alla" data-en="Sweets for everyone" data-ar="حلويات للجميع">Sötsaker för alla</h2>
         </div>
         <div class="menu-grid fade-in">
             <div class="menu-card">
-                <img src="images/pannkaka-choklad.jpg" alt="Mini-Pannkakor" class="menu-card-img" loading="lazy">
+                <img src="images/pannkaka-choklad.jpg" class="menu-card-img" loading="lazy">
                 <div class="menu-card-body">
-                    <h3>🥞 Mini-Pannkakor</h3>
-                    <div class="price">Från 89 kr</div>
-                    <p>Fluffiga mini-pannkakor med chokladsås, Lotussås, pistagesås, vit choklad, färska frukter och glass.</p>
+                    <h3 data-sv="🥞 Mini-Pannkakor" data-en="🥞 Mini Pancakes" data-ar="🥞 ميني بان كيك">🥞 Mini-Pannkakor</h3>
+                    <div class="price" data-sv="Från 89 kr" data-en="From 89 kr" data-ar="من 89 كرونة">Från 89 kr</div>
+                    <p data-sv="Fluffiga mini-pannkakor med chokladsås, Lotussås, pistagesås, vit choklad, färska frukter och glass." data-en="Fluffy mini pancakes with chocolate sauce, Lotus sauce, pistachio sauce, white chocolate, fresh fruits and ice cream." data-ar="بان كيك صغير وهش مع صوص شوكولاتة، لوتس، فستق، شوكولاتة بيضاء، فواكه طازجة وآيس كريم.">Fluffiga mini-pannkakor med chokladsås, Lotussås, pistagesås, vit choklad, färska frukter och glass.</p>
                 </div>
             </div>
             <div class="menu-card">
-                <img src="images/vaffla-pistasch.jpg" alt="Belgiska Våfflor" class="menu-card-img" loading="lazy">
+                <img src="images/vaffla-pistasch.jpg" class="menu-card-img" loading="lazy">
                 <div class="menu-card-body">
-                    <h3>🧇 Belgiska Våfflor</h3>
-                    <div class="price">Från 79 kr</div>
-                    <p>Krispiga utsida, fluffig insida. Med ditt val av choklad, pistage, bär, grädde och glass.</p>
+                    <h3 data-sv="🧇 Belgiska Våfflor" data-en="🧇 Belgian Waffles" data-ar="🧇 وافل بلجيكي">🧇 Belgiska Våfflor</h3>
+                    <div class="price" data-sv="Från 79 kr" data-en="From 79 kr" data-ar="من 79 كرونة">Från 79 kr</div>
+                    <p data-sv="Krispiga utsida, fluffig insida. Med choklad, pistage, bär, grädde och glass." data-en="Crispy outside, fluffy inside. With chocolate, pistachio, berries, cream and ice cream." data-ar="مقرمش من الخارج، هش من الداخل. مع شوكولاتة، فستق، توت، كريمة وآيس كريم.">Krispiga utsida, fluffig insida. Med choklad, pistage, bär, grädde och glass.</p>
                 </div>
             </div>
             <div class="menu-card">
-                <img src="images/spagetti.jpg" alt="Chokladspaghetti" class="menu-card-img" loading="lazy">
+                <img src="images/spagetti.jpg" class="menu-card-img" loading="lazy">
                 <div class="menu-card-body">
-                    <h3>🍝 Chokladspaghetti</h3>
-                    <div class="price">Från 99 kr</div>
-                    <p>Vår unika signatur! Choklad formad som spaghetti — ett konstverk du aldrig sett förut.</p>
+                    <h3 data-sv="🍝 Chokladspaghetti" data-en="🍝 Chocolate Spaghetti" data-ar="🍝 سباغيتي شوكولاتة">🍝 Chokladspaghetti</h3>
+                    <div class="price" data-sv="Från 99 kr" data-en="From 99 kr" data-ar="من 99 كرونة">Från 99 kr</div>
+                    <p data-sv="Vår unika signatur! Choklad formad som spaghetti — ett konstverk." data-en="Our unique signature! Chocolate shaped as spaghetti — a work of art." data-ar="توقيعنا الفريد! شوكولاتة بشكل سباغيتي — تحفة فنية.">Vår unika signatur! Choklad formad som spaghetti — ett konstverk.</p>
                 </div>
             </div>
             <div class="menu-card">
-                <img src="images/fruktsallad.jpg" alt="Fruktsallad" class="menu-card-img" loading="lazy">
+                <img src="images/fruktsallad.jpg" class="menu-card-img" loading="lazy">
                 <div class="menu-card-body">
-                    <h3>🍉 Fruktsallad Deluxe</h3>
-                    <div class="price">Från 69 kr</div>
-                    <p>Färska frukter, glass och chokladsås. Det hälsosamma alternativet — fast fortfarande oemotståndligt.</p>
+                    <h3 data-sv="🍉 Fruktsallad Deluxe" data-en="🍉 Fruit Salad Deluxe" data-ar="🍉 سلطة فواكه ديلوكس">🍉 Fruktsallad Deluxe</h3>
+                    <div class="price" data-sv="Från 69 kr" data-en="From 69 kr" data-ar="من 69 كرونة">Från 69 kr</div>
+                    <p data-sv="Färska frukter, glass och chokladsås. Hälsosamt — fast fortfarande oemotståndligt." data-en="Fresh fruits, ice cream and chocolate sauce. Healthy — yet still irresistible." data-ar="فواكه طازجة، آيس كريم وصوص شوكولاتة. صحي — لكن لا يقاوم.">Färska frukter, glass och chokladsås. Hälsosamt — fast fortfarande oemotståndligt.</p>
                 </div>
             </div>
         </div>
@@ -525,29 +636,25 @@
     <!-- SIGNATURE -->
     <section class="signature">
         <div class="fade-in">
-            <p class="section-label">⭐ Vår Signaturrätt</p>
-            <h2 class="section-title">Pannkakstallriken</h2>
+            <p class="s-label">⭐ SIGNATUR</p>
+            <h2 class="s-title" data-sv="Pannkakstallriken" data-en="The Pancake Platter" data-ar="طبق البان كيك">Pannkakstallriken</h2>
         </div>
-        <div class="signature-split fade-in">
-            <div class="signature-image">
-                <img src="images/pannkaka-pistasch.jpg" alt="40 Mini-Pannkakor" loading="lazy">
+        <div class="sig-split fade-in">
+            <div class="sig-img">
+                <img src="images/pannkaka-pistasch.jpg" loading="lazy">
             </div>
-            <div class="signature-info">
-                <h3>40 Mini-Pannkakor</h3>
-                <div class="signature-price">Lyxupplevelse · Dela med vänner</div>
-                <div class="signature-details">
-                    <span class="signature-tag">🍫 Chokladsås</span>
-                    <span class="signature-tag">🍪 Lotussås</span>
-                    <span class="signature-tag">🟢 Pistagesås</span>
-                    <span class="signature-tag">🤍 Vit Choklad</span>
-                    <span class="signature-tag">🍓 Färska Frukter</span>
-                    <span class="signature-tag">🍦 Glass</span>
+            <div class="sig-info">
+                <h3 data-sv="40 Mini-Pannkakor" data-en="40 Mini Pancakes" data-ar="40 ميني بان كيك">40 Mini-Pannkakor</h3>
+                <div class="sig-price" data-sv="Lyxupplevelse · Perfekt att dela" data-en="Luxury experience · Perfect for sharing" data-ar="تجربة فاخرة · مثالي للمشاركة">Lyxupplevelse · Perfekt att dela</div>
+                <div class="sig-tags">
+                    <span class="sig-tag">🍫 Chokladsås</span>
+                    <span class="sig-tag">🍪 Lotussås</span>
+                    <span class="sig-tag">🟢 Pistagesås</span>
+                    <span class="sig-tag">🤍 Vit Choklad</span>
+                    <span class="sig-tag">🍓 Frukter</span>
+                    <span class="sig-tag">🍦 Glass</span>
                 </div>
-                <p class="signature-text">
-                    Vår mest delade dessert. 40 handgjorda mini-pannkakor 
-                    med sex olika såser, färska bär och glass. 
-                    En upplevelse, inte bara en dessert.
-                </p>
+                <p class="sig-text" data-sv="Vår mest delade dessert. 40 handgjorda mini-pannkakor med sex olika såser, färska bär och glass. En upplevelse, inte bara en dessert." data-en="Our most shared dessert. 40 handmade mini pancakes with six different sauces, fresh berries and ice cream. An experience, not just a dessert." data-ar="الحلوى الأكثر مشاركة لدينا. 40 بان كيك صغير يدوي مع ستة أنواع صوص، توت طازج وآيس كريم. تجربة وليس مجرد حلوى.">Vår mest delade dessert. 40 handgjorda mini-pannkakor med sex olika såser, färska bär och glass. En upplevelse, inte bara en dessert.</p>
             </div>
         </div>
     </section>
@@ -555,72 +662,125 @@
     <!-- EXCLUSIVE -->
     <section class="exclusive" id="exclusive">
         <div class="fade-in">
-            <p class="section-label">Exklusiva Kreationer</p>
-            <h2 class="section-title">Bara hos oss</h2>
-            <p class="section-subtitle" style="margin: 0 auto;">
-                Unika desserter du inte hittar någon annanstans.
-            </p>
+            <p class="s-label" data-sv="Exklusiva Kreationer" data-en="Exclusive Creations" data-ar="إبداعات حصرية">Exklusiva Kreationer</p>
+            <h2 class="s-title" data-sv="Bara hos oss" data-en="Only here" data-ar="فقط عندنا">Bara hos oss</h2>
         </div>
-        <div class="exclusive-grid fade-in">
-            <div class="exclusive-card">
-                <img src="images/ananas1.jpg" alt="Ananas Dessert" loading="lazy">
-                <div class="overlay"><h4>Ananas Special</h4></div>
+        <div class="ex-grid fade-in">
+            <div class="ex-card">
+                <img src="images/ananas1.jpg" loading="lazy">
+                <div class="ov"><h4>Ananas Special</h4><p>Exklusiv</p></div>
             </div>
-            <div class="exclusive-card">
-                <img src="images/nougat.jpg" alt="Nougat Deluxe" loading="lazy">
-                <div class="overlay"><h4>Nougat Deluxe</h4></div>
+            <div class="ex-card">
+                <img src="images/nougat.jpg" loading="lazy">
+                <div class="ov"><h4>Nougat Deluxe</h4><p>Exklusiv</p></div>
             </div>
-            <div class="exclusive-card">
-                <img src="images/spagetti-choklad.jpg" alt="Chokladspaghetti" loading="lazy">
-                <div class="overlay"><h4>Chokladspaghetti</h4></div>
+            <div class="ex-card">
+                <img src="images/spagetti-choklad.jpg" loading="lazy">
+                <div class="ov"><h4>Chokladspaghetti</h4><p>Signatur</p></div>
             </div>
-            <div class="exclusive-card">
-                <img src="images/ananas2.jpg" alt="Tropical Dream" loading="lazy">
-                <div class="overlay"><h4>Tropical Dream</h4></div>
+            <div class="ex-card">
+                <img src="images/ananas2.jpg" loading="lazy">
+                <div class="ov"><h4>Tropical Dream</h4><p>Exklusiv</p></div>
             </div>
-            <div class="exclusive-card">
-                <img src="images/vaffla-lotus.jpg" alt="Lotus Våffla" loading="lazy">
-                <div class="overlay"><h4>Lotus Våffla</h4></div>
+            <div class="ex-card">
+                <img src="images/vaffla-lotus.jpg" loading="lazy">
+                <div class="ov"><h4>Lotus Våffla</h4><p>Populär</p></div>
             </div>
-            <div class="exclusive-card">
-                <img src="images/vaffla-chokladsas.jpg" alt="Chokladälskarens Dröm" loading="lazy">
-                <div class="overlay"><h4>Chokladälskarens Dröm</h4></div>
+            <div class="ex-card">
+                <img src="images/vaffla-chokladsas.jpg" loading="lazy">
+                <div class="ov"><h4>Chokladälskarens Dröm</h4><p>Bestseller</p></div>
             </div>
+        </div>
+    </section>
+
+    <!-- ORDER -->
+    <section class="order" id="order">
+        <div class="fade-in">
+            <p class="s-label" data-sv="Beställ" data-en="Order" data-ar="اطلب">Beställ</p>
+            <h2 class="s-title" data-sv="Leverans till dörren" data-en="Delivered to your door" data-ar="توصيل لباب بيتك">Leverans till dörren</h2>
+            <p class="s-sub" style="margin:0 auto" data-sv="Beställ via dina favoritappar — leverans på ca 28 minuter." data-en="Order through your favorite apps — delivery in about 28 minutes." data-ar="اطلب عبر تطبيقاتك المفضلة — التوصيل خلال 28 دقيقة تقريباً.">Beställ via dina favoritappar — leverans på ca 28 minuter.</p>
+        </div>
+        <div class="order-methods fade-in">
+            <a href="#" class="order-card">
+                <div class="order-icon">🟢</div>
+                <h3>Uber Eats</h3>
+                <p data-sv="Beställ direkt via appen" data-en="Order directly via the app" data-ar="اطلب مباشرة عبر التطبيق">Beställ direkt via appen</p>
+            </a>
+            <a href="#" class="order-card">
+                <div class="order-icon">🟠</div>
+                <h3>Foodora</h3>
+                <p data-sv="Snabb leverans i Solna" data-en="Fast delivery in Solna" data-ar="توصيل سريع في سولنا">Snabb leverans i Solna</p>
+            </a>
+            <a href="tel:+46769526059" class="order-card">
+                <div class="order-icon">📞</div>
+                <h3 data-sv="Ring & Hämta" data-en="Call & Collect" data-ar="اتصل واستلم">Ring & Hämta</h3>
+                <p>076-952 60 59</p>
+            </a>
         </div>
     </section>
 
     <!-- REVIEWS -->
     <section class="reviews" id="reviews">
         <div class="fade-in">
-            <p class="section-label">Vad Gästerna Säger</p>
-            <div class="rating-number">4.7</div>
+            <p class="s-label" data-sv="Omdömen" data-en="Reviews" data-ar="التقييمات">Omdömen</p>
+            <div class="rating-big">4.7</div>
             <div class="stars">★★★★★</div>
-            <p class="rating-label">på Google · Solnas favoritdessertställe</p>
+            <p class="rating-label" data-sv="på Google · Solnas favoritdessertställe" data-en="on Google · Solna's favorite dessert spot" data-ar="على جوجل · مكان الحلويات المفضل في سولنا">på Google · Solnas favoritdessertställe</p>
         </div>
-        <div class="review-cards fade-in">
-            <div class="review-card">
+        <div class="rev-cards fade-in">
+            <div class="rev-card">
                 <div class="stars">★★★★★</div>
                 <p>"Bästa dessertcaféet i Solna! Mini-pannkakorna var fantastiska och personalen är jättevänlig."</p>
-                <span class="review-author">— Google Recension</span>
+                <span class="rev-author">— Google</span>
             </div>
-            <div class="review-card">
+            <div class="rev-card">
                 <div class="stars">★★★★★</div>
-                <p>"Perfekt ställe att ta med familjen. Barnen älskar chokladdoppet och jag kan inte sluta äta deras gelato."</p>
-                <span class="review-author">— Google Recension</span>
+                <p>"Perfekt ställe att ta med familjen. Barnen älskar chokladdoppet och deras gelato är otrolig."</p>
+                <span class="rev-author">— Google</span>
             </div>
-            <div class="review-card">
+            <div class="rev-card">
                 <div class="stars">★★★★★</div>
                 <p>"Chokladspaghetti — jag visste inte att det var en grej, men nu är jag besatt. Unikt koncept!"</p>
-                <span class="review-author">— Google Recension</span>
+                <span class="rev-author">— Google</span>
             </div>
+        </div>
+    </section>
+
+    <!-- PARTY BOOKING -->
+    <section class="party" id="party">
+        <div class="fade-in">
+            <p class="s-label" data-sv="🎉 Fest & Event" data-en="🎉 Party & Events" data-ar="🎉 حفلات ومناسبات">🎉 Fest & Event</p>
+            <h2 class="s-title" data-sv="Boka din chokladfest" data-en="Book your chocolate party" data-ar="احجز حفلة الشوكولاتة">Boka din chokladfest</h2>
+            <p class="s-sub" style="margin:0 auto" data-sv="Födelsedagar, företagsevent eller bara en söt kväll med vänner. Vi fixar allt!" data-en="Birthdays, corporate events or just a sweet night with friends. We handle everything!" data-ar="أعياد ميلاد، فعاليات شركات أو أمسية حلوة مع الأصدقاء. نحن نهتم بكل شيء!">Födelsedagar, företagsevent eller bara en söt kväll med vänner. Vi fixar allt!</p>
+        </div>
+        <div class="party-features fade-in">
+            <div class="party-feat" data-sv="🎂 Födelsedagspaket" data-en="🎂 Birthday Package" data-ar="🎂 باقة عيد ميلاد">🎂 Födelsedagspaket</div>
+            <div class="party-feat" data-sv="🏢 Företagsevent" data-en="🏢 Corporate Events" data-ar="🏢 فعاليات الشركات">🏢 Företagsevent</div>
+            <div class="party-feat" data-sv="👨‍👩‍👧‍👦 Familjefester" data-en="👨‍👩‍👧‍👦 Family Parties" data-ar="👨‍👩‍👧‍👦 حفلات عائلية">👨‍👩‍👧‍👦 Familjefester</div>
+            <div class="party-feat" data-sv="🍫 Chokladprovning" data-en="🍫 Chocolate Tasting" data-ar="🍫 تذوق شوكولاتة">🍫 Chokladprovning</div>
+        </div>
+        <div class="party-form fade-in">
+            <input type="text" placeholder="Ditt namn / Your name / اسمك" required>
+            <input type="email" placeholder="E-post / Email / بريد إلكتروني" required>
+            <input type="tel" placeholder="Telefon / Phone / هاتف">
+            <select>
+                <option value="" disabled selected data-sv="Typ av event" data-en="Type of event" data-ar="نوع الحدث">Typ av event</option>
+                <option data-sv="Födelsedagsfest" data-en="Birthday Party" data-ar="حفلة عيد ميلاد">Födelsedagsfest</option>
+                <option data-sv="Företagsevent" data-en="Corporate Event" data-ar="فعالية شركة">Företagsevent</option>
+                <option data-sv="Familjefest" data-en="Family Party" data-ar="حفلة عائلية">Familjefest</option>
+                <option data-sv="Annat" data-en="Other" data-ar="أخرى">Annat</option>
+            </select>
+            <input type="number" placeholder="Antal gäster / Number of guests / عدد الضيوف" min="1">
+            <textarea placeholder="Meddelande / Message / رسالة"></textarea>
+            <button type="submit" data-sv="Skicka Förfrågan ✨" data-en="Send Request ✨" data-ar="✨ إرسال الطلب">Skicka Förfrågan ✨</button>
         </div>
     </section>
 
     <!-- VISIT -->
     <section class="visit" id="visit">
         <div class="fade-in">
-            <p class="section-label">Besök Oss</p>
-            <h2 class="section-title">Vi väntar på dig</h2>
+            <p class="s-label" data-sv="Besök Oss" data-en="Visit Us" data-ar="زورنا">Besök Oss</p>
+            <h2 class="s-title" data-sv="Vi väntar på dig" data-en="We're waiting for you" data-ar="ننتظرك">Vi väntar på dig</h2>
         </div>
         <div class="visit-grid fade-in">
             <div class="visit-info">
@@ -629,64 +789,96 @@
                     <p>Huvudsta Centrum<br>Storgatan, 171 52 Solna</p>
                 </div>
                 <div class="visit-item">
-                    <h4>🕐 Öppettider</h4>
-                    <p>Alla dagar: 12:00 – 22:00</p>
+                    <h4 data-sv="🕐 Öppettider" data-en="🕐 Opening Hours" data-ar="🕐 ساعات العمل">🕐 Öppettider</h4>
+                    <p data-sv="Alla dagar: 12:00 – 22:00" data-en="Every day: 12:00 – 22:00" data-ar="كل يوم: 12:00 – 22:00">Alla dagar: 12:00 – 22:00</p>
                 </div>
                 <div class="visit-item">
                     <h4>📞 Kontakt</h4>
                     <p><a href="tel:+46769526059">076-952 60 59</a></p>
                 </div>
                 <div class="visit-item">
-                    <h4>🚇 Hitta hit</h4>
-                    <p>T-bana: Huvudsta station (2 min promenad)<br>Buss: Linje 113, 176</p>
+                    <h4 data-sv="🚇 Transport" data-en="🚇 Transport" data-ar="🚇 المواصلات">🚇 Transport</h4>
+                    <p data-sv="T-bana: Huvudsta (2 min)" data-en="Metro: Huvudsta (2 min)" data-ar="مترو: هوفودستا (دقيقتين)">T-bana: Huvudsta (2 min)</p>
                 </div>
                 <div class="visit-item">
-                    <h4>🛵 Leverans</h4>
-                    <p>Beställ via Uber Eats, Foodora eller Wolt<br>Leveranstid: ca 28 minuter</p>
+                    <h4 data-sv="🛵 Leverans" data-en="🛵 Delivery" data-ar="🛵 توصيل">🛵 Leverans</h4>
+                    <p data-sv="Uber Eats · Foodora · Wolt" data-en="Uber Eats · Foodora · Wolt" data-ar="Uber Eats · Foodora · Wolt">Uber Eats · Foodora · Wolt</p>
                 </div>
             </div>
             <div class="visit-map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2033.5!2d17.9978!3d59.3498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTnCsDIxJzAuMCJOIDE3wrA1OScwLjAiRQ!5e0!3m2!1ssv!2sse!4v1" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2033.5!2d17.9978!3d59.3498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTnCsDIxJzAuMCJOIDE3wrA1OScwLjAiRQ!5e0!3m2!1ssv!2sse!4v1" allowfullscreen loading="lazy"></iframe>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="cta-banner">
+    <section class="cta-final">
         <div class="fade-in">
-            <h2>Redo för en söt upplevelse?</h2>
-            <p>Kom förbi — vi har alltid plats för fler chokladälskare 🍫</p>
-            <a href="tel:+46769526059" class="btn-primary">Ring & Boka →</a>
+            <h2 data-sv="Redo för en söt upplevelse?" data-en="Ready for a sweet experience?" data-ar="مستعد لتجربة حلوة؟">Redo för en söt upplevelse?</h2>
+            <p data-sv="Kom förbi — vi har alltid plats för fler chokladälskare 🍫" data-en="Drop by — we always have room for more chocolate lovers 🍫" data-ar="مرّ علينا — عندنا دائماً مكان لعشاق الشوكولاتة 🍫">Kom förbi — vi har alltid plats för fler chokladälskare 🍫</p>
+            <a href="tel:+46769526059" class="btn-p" data-sv="Ring & Boka →" data-en="Call & Book →" data-ar="اتصل واحجز ←">Ring & Boka →</a>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-brand">
-            <img src="images/logo.png" alt="Chocolatetello">
+        <div class="f-brand">
+            <img src="images/logo.png" alt="Logo">
             <span>Chocolatetello</span>
         </div>
-        <div class="footer-links">
-            <a href="#about">Om Oss</a>
-            <a href="#menu">Meny</a>
-            <a href="#exclusive">Exklusiva</a>
-            <a href="#reviews">Omdömen</a>
-            <a href="#visit">Besök Oss</a>
+        <div class="f-links">
+            <a href="#about" data-sv="Om Oss" data-en="About" data-ar="عنا">Om Oss</a>
+            <a href="#menu" data-sv="Meny" data-en="Menu" data-ar="القائمة">Meny</a>
+            <a href="#exclusive" data-sv="Exklusiva" data-en="Exclusive" data-ar="حصري">Exklusiva</a>
+            <a href="#party" data-sv="Boka Fest" data-en="Book Party" data-ar="حجز حفلة">Boka Fest</a>
+            <a href="#visit" data-sv="Hitta Oss" data-en="Find Us" data-ar="موقعنا">Hitta Oss</a>
             <a href="tel:+46769526059">📞 076-952 60 59</a>
         </div>
-        <p class="footer-copy">© 2026 Chocolatetello · Huvudsta Centrum, Solna · Med kärlek till choklad ♥</p>
+        <p class="f-copy">© 2026 Chocolatetello · Huvudsta Centrum, Solna · Med kärlek till choklad ♥</p>
     </footer>
 
     <script>
-        window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        // Nav scroll
+        window.addEventListener('scroll',()=>{
+            document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
         });
-        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
-        function closeMenu() { document.getElementById('navLinks').classList.remove('active'); }
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        // Mobile menu
+        function toggleMenu(){document.getElementById('navLinks').classList.toggle('active');}
+        function closeMenu(){document.getElementById('navLinks').classList.remove('active');}
+        // Fade in
+        const obs=new IntersectionObserver(e=>{
+            e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v');});
+        },{threshold:0.1});
+        document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+        // Language switcher
+        let currentLang='sv';
+        function setLang(lang){
+            currentLang=lang;
+            document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+            document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+            document.querySelectorAll('[data-'+lang+']').forEach(el=>{
+                const val=el.getAttribute('data-'+lang);
+                if(val){
+                    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder=val;
+                    else el.textContent=val;
+                }
+            });
+            // RTL for Arabic
+            document.body.dir=lang==='ar'?'rtl':'ltr';
+        }
+
+        // Party form submit (demo)
+        document.querySelector('.party-form button').addEventListener('click',function(e){
+            e.preventDefault();
+            const msgs={sv:'Tack! Vi hör av oss snart 🍫',en:'Thanks! We\'ll get back to you soon 🍫',ar:'!شكراً! سنتواصل معك قريباً 🍫'};
+            this.textContent=msgs[currentLang]||msgs.sv;
+            this.style.background='linear-gradient(135deg,#2ecc71,#27ae60)';
+            setTimeout(()=>{
+                this.textContent={sv:'Skicka Förfrågan ✨',en:'Send Request ✨',ar:'✨ إرسال الطلب'}[currentLang];
+                this.style.background='';
+            },3000);
+        });
     </script>
 </body>
 </html>
